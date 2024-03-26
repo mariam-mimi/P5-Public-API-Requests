@@ -1,5 +1,5 @@
-const gallery = document.getElementById('gallery');
-let currentIndex = 0; // Track the index of the currently displayed modal
+const gallery = document.getElementById('gallery'); // Get the gallery id
+let currentIndex = 0; // Track index of currently displayed modal
 let usersData = []; // Array to store the fetched users
 
 // Function to fetch data from the API
@@ -35,7 +35,7 @@ function createGalleryItem(user, index) {
 
 // Function to create and display modal
 function showModal(user, index) {
-    // Create modal markup
+    // Create the modal markup
     const modalMarkup = `
         <!-- Modal content -->
         <div class="modal-container">
@@ -51,6 +51,7 @@ function showModal(user, index) {
                     <p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state} ${user.location.postcode}</p>
                     <p class="modal-text">Birthday: ${new Date(user.dob.date).toLocaleDateString()}</p>
                 </div>
+                <!-- Previous and Next buttons -->
                 <div class="modal-btn-container">
                     <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
                     <button type="button" id="modal-next" class="modal-next btn">Next</button>
@@ -59,16 +60,16 @@ function showModal(user, index) {
         </div>
     `;
 
-    // Append modal to body
+    // Append the modal to body
     document.body.insertAdjacentHTML('beforeend', modalMarkup);
 
-    // Add event listener to close modal
+    // Add event listener to close the modal
     const closeModalBtn = document.getElementById('modal-close-btn');
     closeModalBtn.addEventListener('click', () => {
         document.querySelector('.modal-container').remove();
     });
 
-    // Add event listeners to modal buttons
+    // Add event listeners to previous and next buttons
     const modalPrevBtn = document.getElementById('modal-prev');
     const modalNextBtn = document.getElementById('modal-next');
     modalPrevBtn.addEventListener('click', () => {
@@ -88,7 +89,7 @@ function updateModal(index) {
     showModal(user, index); // Show modal with updated user data
 }
 
-// Function to filter users based on search input
+// Function to filter users based on the search input
 function filterUsers(users, searchTerm) {
     searchTerm = searchTerm.toLowerCase();
     return users.filter(user => {
@@ -97,7 +98,7 @@ function filterUsers(users, searchTerm) {
     });
 }
 
-// Function to clear gallery
+// Function to clear the gallery
 function clearGallery() {
     gallery.innerHTML = '';
 }
@@ -113,7 +114,7 @@ fetchUsers('https://randomuser.me/api/?results=12')
         usersData = users; // Store fetched users
         users.forEach((user, index) => createGalleryItem(user, index));
 
-        // Event listener for search form submission
+        // Event listener for the search form submission
         const searchForm = document.querySelector('form');
         searchForm.addEventListener('submit', function(event) {
             event.preventDefault();
